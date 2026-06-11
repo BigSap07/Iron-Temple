@@ -88,7 +88,7 @@
   }
   .hero-bg{
     position:absolute;inset:0;z-index:0;
-    background:url('nautilus.png') center 22% / cover no-repeat;
+    background:url('nautilus.jpg') center 22% / cover no-repeat;
     filter:grayscale(20%);opacity:.22;
   }
   .hero-veil{
@@ -134,7 +134,7 @@
   .eq-panel.active{display:grid}
   .eq-panel.shown{opacity:1}
   .eq-media{position:relative;background:var(--s2);border:1px solid var(--line);overflow:hidden}
-  .eq-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+  .eq-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/4}
   .eq-text .eyebrow{display:block;margin-bottom:14px}
   .eq-text h3{font-family:var(--display);font-weight:400;font-size:clamp(30px,4vw,46px);line-height:.96;margin-bottom:18px;letter-spacing:.01em}
   .eq-copy{color:var(--muted);font-size:15px;margin-bottom:24px}
@@ -154,20 +154,6 @@
   .gtile img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .7s var(--ease);filter:grayscale(15%)}
   .gtile:hover img{transform:scale(1.05);filter:grayscale(0)}
   .gtile span{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);background:rgba(0,0,0,.5);padding:5px 9px;backdrop-filter:blur(4px)}
-
-  /* MEMBERSHIPS */
-  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
-  .plan{background:var(--s1);border:1px solid var(--line);padding:38px 32px;display:flex;flex-direction:column}
-  .plan.featured{border-color:var(--line-strong);background:var(--s2);position:relative}
-  .plan.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--brass)}
-  .plan-tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
-  .plan-head{font-family:var(--display);font-size:clamp(30px,3.6vw,42px);margin:18px 0 4px;letter-spacing:.01em;line-height:1}
-  .plan-sub{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);min-height:16px}
-  .plan-desc{color:var(--muted);font-size:14px;margin:18px 0}
-  .plan-feats{list-style:none;margin:8px 0 26px;flex:1}
-  .plan-feats li{font-size:14px;color:var(--muted);padding:10px 0;border-top:1px solid var(--line)}
-  .plan-feats li::before{content:"+ ";color:var(--brass);font-family:var(--mono)}
-  .plan .btn{width:100%}
 
   /* WAITLIST */
   .waitlist{background:var(--s1);text-align:center}
@@ -200,7 +186,6 @@
     .eq-panel.active{grid-template-columns:1fr;gap:28px}
     .pillars{grid-template-columns:1fr}
     .gallery{grid-template-columns:repeat(2,1fr)}
-    .plans{grid-template-columns:1fr}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
   }
   @media(max-width:640px){
@@ -227,7 +212,6 @@
     <a href="#equipment">Equipment</a>
     <a href="#philosophy">Philosophy</a>
     <a href="#gallery">Gallery</a>
-    <a href="#memberships">Membership</a>
   </div>
   <button class="nav-cta" data-scroll="#waitlist">Join the Waitlist</button>
 </nav>
@@ -277,7 +261,7 @@
 
     <div class="eq-stage reveal">
       <div class="eq-panel active shown" data-brand="prime" role="tabpanel" aria-labelledby="tab-prime">
-        <div class="eq-media"><img src="prime.png" alt="Prime Fitness machine"></div>
+        <div class="eq-media"><img src="prime.jpg" alt="Prime Fitness machine"></div>
         <div class="eq-text">
           <span class="eyebrow">Prime Fitness</span>
           <h3>[Owner: Prime headline or machine name]</h3>
@@ -291,7 +275,7 @@
       </div>
 
       <div class="eq-panel" data-brand="nautilus" role="tabpanel" aria-labelledby="tab-nautilus">
-        <div class="eq-media"><img src="nautilus.png" alt="Nautilus machine"></div>
+        <div class="eq-media"><img src="nautilus.jpg" alt="Nautilus machine"></div>
         <div class="eq-text">
           <span class="eyebrow">Nautilus</span>
           <h3>[Owner: Nautilus headline or machine name]</h3>
@@ -305,7 +289,7 @@
       </div>
 
       <div class="eq-panel" data-brand="newtech" role="tabpanel" aria-labelledby="tab-newtech">
-        <div class="eq-media"><img src="newtech.png" alt="Newtech machine"></div>
+        <div class="eq-media"><img src="newtech.jpg" alt="Newtech machine"></div>
         <div class="eq-text">
           <span class="eyebrow">Newtech</span>
           <h3>[Owner: Newtech headline or machine name]</h3>
@@ -319,7 +303,7 @@
       </div>
 
       <div class="eq-panel" data-brand="irontemple" role="tabpanel" aria-labelledby="tab-irontemple">
-        <div class="eq-media"><img src="bootybuilder.png" alt="Custom Iron Temple equipment"></div>
+        <div class="eq-media"><img src="bootybuilder.jpg" alt="Custom Iron Temple equipment"></div>
         <div class="eq-text">
           <span class="eyebrow">Iron Temple Custom</span>
           <h3>[Owner: custom equipment headline]</h3>
@@ -367,61 +351,10 @@
       <h2>A look inside.</h2>
     </div>
     <div class="gallery">
-      <div class="gtile reveal"><img src="prime.png" alt="Prime Fitness machine"><span>Prime Fitness</span></div>
-      <div class="gtile reveal"><img src="nautilus.png" alt="Nautilus machine"><span>Nautilus</span></div>
-      <div class="gtile reveal"><img src="newtech.png" alt="Newtech machine"><span>Newtech</span></div>
-      <div class="gtile reveal"><img src="bootybuilder.png" alt="Custom Iron Temple equipment"><span>Iron Temple</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- MEMBERSHIPS -->
-<section class="section" id="memberships">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">Membership</span>
-      <h2>Three ways in.</h2>
-      <p>Memberships aren't on sale yet. These are the tiers for launch. Join the waitlist and founding members go first.</p>
-    </div>
-    <div class="plans">
-      <div class="plan featured reveal">
-        <span class="plan-tag">Founding Member</span>
-        <div class="plan-head">First In</div>
-        <div class="plan-sub">Founding members only</div>
-        <p class="plan-desc">For the first members through the door. Your rate stays locked in for as long as you keep your membership.</p>
-        <ul class="plan-feats">
-          <li>Rate locked in for life</li>
-          <li>First access the day doors open</li>
-          <li>[Owner: founding-only perk, e.g. locker or guest passes]</li>
-          <li>Limited founding spots</li>
-        </ul>
-        <button class="btn btn-primary" data-scroll="#waitlist">Claim a Founding Spot</button>
-      </div>
-
-      <div class="plan reveal">
-        <span class="plan-tag">Standard</span>
-        <div class="plan-head">Full Access</div>
-        <div class="plan-sub">Opens after founding</div>
-        <p class="plan-desc">Full run of the floor and every piece of equipment, once general membership opens.</p>
-        <ul class="plan-feats">
-          <li>Full access to the floor and equipment</li>
-          <li>[Owner: what standard includes]</li>
-          <li>Open 6:00 to midnight, daily</li>
-        </ul>
-        <button class="btn btn-ghost" data-scroll="#waitlist">Join the Waitlist</button>
-      </div>
-
-      <div class="plan reveal">
-        <span class="plan-tag">Day Pass</span>
-        <div class="plan-head">Drop-In</div>
-        <div class="plan-sub">For visiting athletes</div>
-        <p class="plan-desc">For competitors and athletes passing through who want a real session, not a tourist gym.</p>
-        <ul class="plan-feats">
-          <li>[Owner: day-pass terms or availability]</li>
-          <li>[Owner: any requirements]</li>
-        </ul>
-        <button class="btn btn-ghost" data-scroll="#waitlist">Enquire</button>
-      </div>
+      <div class="gtile reveal"><img src="prime.jpg" alt="Prime Fitness machine"><span>Prime Fitness</span></div>
+      <div class="gtile reveal"><img src="nautilus.jpg" alt="Nautilus machine"><span>Nautilus</span></div>
+      <div class="gtile reveal"><img src="newtech.jpg" alt="Newtech machine"><span>Newtech</span></div>
+      <div class="gtile reveal"><img src="bootybuilder.jpg" alt="Custom Iron Temple equipment"><span>Iron Temple</span></div>
     </div>
   </div>
 </section>
@@ -430,9 +363,9 @@
 <section class="section waitlist" id="waitlist">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow">Founding Access</span>
+      <span class="eyebrow">The Waitlist</span>
       <h2>Get on the list.</h2>
-      <p>Founding members get first access and lock in their rate for life. Spots are limited. Leave your email and we'll reach out before anyone else.</p>
+      <p>Doors aren't open yet. Get on the list and you'll be first to know when they are, with first access before anyone else. Spots are limited.</p>
     </div>
     <div class="reveal">
       <div class="wl-form">
