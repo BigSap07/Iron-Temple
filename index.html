@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iron Temple | Private Training Facility</title>
+<meta name="description" content="Iron Temple is a private hardcore training facility for serious athletes. Prime Fitness, Nautilus, Newtech and custom Iron Temple iron. No circuits. No classes. No compromise on equipment.">
+<meta name="theme-color" content="#000000">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --s1:#050505;
+    --s2:#0A0A0A;
+    --brass:#8B7355;
+    --text:#E8E8E8;
+    --muted:rgba(232,232,232,.52);
+    --faint:rgba(232,232,232,.34);
+    --line:rgba(232,232,232,.08);
+    --line-strong:rgba(232,232,232,.16);
+    --maxw:1180px;
+    --display:'Bebas Neue',Impact,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --ease:cubic-bezier(.16,.8,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:var(--body);font-weight:300;line-height:1.6;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--brass);color:#000}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+  .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:.34em;
+    text-transform:uppercase;color:var(--brass);font-weight:500;
+  }
+
+  /* NAV */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:18px 28px;border-bottom:1px solid transparent;
+    transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease);
+  }
+  .nav.scrolled{
+    background:rgba(0,0,0,.62);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--line);padding:12px 28px;
+  }
+  .nav-logo{height:40px;width:auto;mix-blend-mode:lighten}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{
+    font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);transition:color .25s;
+  }
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{
+    font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--text);border:1px solid var(--line-strong);padding:9px 16px;background:none;cursor:pointer;
+    transition:border-color .25s,color .25s;
+  }
+  .nav-cta:hover{border-color:var(--brass);color:var(--brass)}
+
+  /* BUTTONS */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    padding:15px 30px;cursor:pointer;border:1px solid transparent;transition:all .3s var(--ease);
+  }
+  .btn-primary{background:var(--brass);color:#0a0a0a;font-weight:500}
+  .btn-primary:hover{background:#9d8460;transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--brass);color:var(--brass)}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;min-height:100svh;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;inset:0;z-index:0;
+    background:url('nautilus.png') center 22% / cover no-repeat;
+    filter:grayscale(20%);opacity:.22;
+  }
+  .hero-veil{
+    position:absolute;inset:0;z-index:1;
+    background:
+      radial-gradient(120% 90% at 50% 30%, transparent 0%, rgba(0,0,0,.55) 70%, #000 100%),
+      linear-gradient(180deg, rgba(0,0,0,.55) 0%, transparent 25%, transparent 55%, #000 100%);
+  }
+  .hero-logo-wrap{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center;padding-top:60px}
+  .hero-logo{width:min(360px,65vw);height:auto;mix-blend-mode:lighten;opacity:0;transform:scale(.985)}
+  .hero-bottom{position:relative;z-index:2;width:100%;padding:0 28px 56px;opacity:0;transform:translateY(26px)}
+  .hero-tag{font-family:var(--body);font-weight:300;color:var(--text);font-size:clamp(15px,2.1vw,20px);max-width:640px;margin:0 auto 30px;line-height:1.5}
+  .hero-tag b{color:var(--brass);font-weight:500}
+  .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .scroll-hint{margin-top:34px;font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+  .loaded .hero-logo{animation:logoIn 1.3s var(--ease) .25s forwards}
+  .loaded .hero-bottom{animation:fadeUp 1s var(--ease) 1.05s forwards}
+  @keyframes logoIn{to{opacity:1;transform:scale(1)}}
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+  /* SECTION SHELL */
+  .section{padding:110px 0;border-top:1px solid var(--line);position:relative}
+  .section-head{margin-bottom:54px;max-width:680px}
+  .section-head h2{font-family:var(--display);font-weight:400;line-height:.94;letter-spacing:.01em;font-size:clamp(36px,6vw,68px);margin-top:14px}
+  .section-head p{color:var(--muted);margin-top:18px;font-size:16px;max-width:560px}
+
+  /* STATS */
+  .stats{background:var(--s1);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .stats .container{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;padding:0}
+  .stat{padding:46px 28px;background:var(--bg);text-align:center}
+  .stat-num{font-family:var(--display);font-size:clamp(40px,5vw,60px);color:var(--text);display:block;line-height:1}
+  .stat-label{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass);display:block;margin-top:14px}
+  .stat-note{font-family:var(--mono);font-size:10px;letter-spacing:.05em;color:var(--faint);display:block;margin-top:8px}
+
+  /* EQUIPMENT */
+  .eq-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:40px;border-bottom:1px solid var(--line)}
+  .eq-tab{background:none;border:none;cursor:pointer;color:var(--muted);font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;padding:14px 18px;position:relative;transition:color .25s}
+  .eq-tab:hover{color:var(--text)}
+  .eq-tab[aria-selected="true"]{color:var(--text)}
+  .eq-tab[aria-selected="true"]::after{content:"";position:absolute;left:18px;right:18px;bottom:-1px;height:2px;background:var(--brass)}
+  .eq-stage{position:relative}
+  .eq-panel{display:none;opacity:0;transition:opacity .42s var(--ease);grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+  .eq-panel.active{display:grid}
+  .eq-panel.shown{opacity:1}
+  .eq-media{position:relative;background:var(--s2);border:1px solid var(--line);overflow:hidden}
+  .eq-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+  .eq-text .eyebrow{display:block;margin-bottom:14px}
+  .eq-text h3{font-family:var(--display);font-weight:400;font-size:clamp(30px,4vw,46px);line-height:.96;margin-bottom:18px;letter-spacing:.01em}
+  .eq-copy{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .eq-list{list-style:none}
+  .eq-list li{font-family:var(--mono);font-size:13px;color:var(--faint);padding:12px 0;border-top:1px solid var(--line);letter-spacing:.02em}
+  .eq-list li::before{content:"\203A  ";color:var(--brass)}
+
+  /* PHILOSOPHY */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+  .pillar{background:var(--bg);padding:44px 36px}
+  .pillar h3{font-family:var(--display);font-weight:400;font-size:clamp(26px,3vw,34px);margin-bottom:14px;letter-spacing:.01em}
+  .pillar p{color:var(--muted);font-size:15px}
+
+  /* GALLERY */
+  .gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .gtile{position:relative;overflow:hidden;background:var(--s2);border:1px solid var(--line);aspect-ratio:3/4}
+  .gtile img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease),filter .7s var(--ease);filter:grayscale(15%)}
+  .gtile:hover img{transform:scale(1.05);filter:grayscale(0)}
+  .gtile span{position:absolute;left:14px;bottom:12px;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);background:rgba(0,0,0,.5);padding:5px 9px;backdrop-filter:blur(4px)}
+
+  /* MEMBERSHIPS */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  .plan{background:var(--s1);border:1px solid var(--line);padding:38px 32px;display:flex;flex-direction:column}
+  .plan.featured{border-color:var(--line-strong);background:var(--s2);position:relative}
+  .plan.featured::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--brass)}
+  .plan-tag{font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--brass)}
+  .plan-head{font-family:var(--display);font-size:clamp(30px,3.6vw,42px);margin:18px 0 4px;letter-spacing:.01em;line-height:1}
+  .plan-sub{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint);min-height:16px}
+  .plan-desc{color:var(--muted);font-size:14px;margin:18px 0}
+  .plan-feats{list-style:none;margin:8px 0 26px;flex:1}
+  .plan-feats li{font-size:14px;color:var(--muted);padding:10px 0;border-top:1px solid var(--line)}
+  .plan-feats li::before{content:"+ ";color:var(--brass);font-family:var(--mono)}
+  .plan .btn{width:100%}
+
+  /* WAITLIST */
+  .waitlist{background:var(--s1);text-align:center}
+  .waitlist .section-head{margin:0 auto 36px}
+  .wl-form{display:flex;gap:10px;max-width:520px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+  .wl-form input{flex:1;min-width:240px;background:var(--bg);border:1px solid var(--line-strong);color:var(--text);font-family:var(--body);font-size:15px;padding:15px 18px;transition:border-color .25s}
+  .wl-form input::placeholder{color:var(--faint)}
+  .wl-form input:focus{outline:none;border-color:var(--brass)}
+  .wl-hint{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--faint);margin-top:18px}
+  .wl-msg{font-family:var(--mono);font-size:13px;letter-spacing:.04em;margin-top:20px;min-height:20px}
+  .wl-msg.ok{color:var(--brass)}
+  .wl-msg.err{color:#c97b6b}
+
+  /* FOOTER */
+  .footer{border-top:1px solid var(--line);padding:64px 0 40px;background:var(--bg)}
+  .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px;align-items:start}
+  .footer-logo{height:72px;width:auto;opacity:.65;mix-blend-mode:lighten}
+  .footer-about{margin-top:18px;color:var(--faint);font-size:13px;max-width:280px;line-height:1.6}
+  .footer-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);margin-bottom:16px}
+  .footer-col p,.footer-col a{display:block;font-size:14px;color:var(--muted);margin-bottom:8px}
+  .footer-col a:hover{color:var(--text)}
+  .footer-base{margin-top:54px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint)}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+  .reveal.is-visible{opacity:1;transform:translateY(0)}
+
+  @media(max-width:900px){
+    .stats .container{grid-template-columns:repeat(2,1fr)}
+    .eq-panel.active{grid-template-columns:1fr;gap:28px}
+    .pillars{grid-template-columns:1fr}
+    .gallery{grid-template-columns:repeat(2,1fr)}
+    .plans{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
+  }
+  @media(max-width:640px){
+    .nav-links{display:none}
+    .section{padding:78px 0}
+    .gallery{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr}
+    .container{padding:0 20px}
+    .nav,.nav.scrolled{padding-left:20px;padding-right:20px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+    .hero-logo,.hero-bottom,.reveal{opacity:1!important;transform:none!important}
+    .eq-panel.active{opacity:1!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#top" aria-label="Iron Temple home"><img class="nav-logo" src="logo.png" alt="Iron Temple"></a>
+  <div class="nav-links">
+    <a href="#equipment">Equipment</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#memberships">Membership</a>
+  </div>
+  <button class="nav-cta" data-scroll="#waitlist">Join the Waitlist</button>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <div class="hero-logo-wrap">
+    <img class="hero-logo" src="logo.png" alt="Iron Temple">
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-tag">A private training facility built for serious athletes. <b>No circuits. No classes. No compromise on equipment.</b></p>
+    <div class="hero-ctas">
+      <button class="btn btn-primary" data-scroll="#waitlist">Join the Waitlist</button>
+      <button class="btn btn-ghost" data-scroll="#equipment">View the Equipment</button>
+    </div>
+    <div class="scroll-hint">Opening date to be announced</div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="container">
+    <div class="stat reveal"><span class="stat-num">TBA</span><span class="stat-label">Floor</span><span class="stat-note">[Owner: e.g. 12,000 sq ft]</span></div>
+    <div class="stat reveal"><span class="stat-num">TBA</span><span class="stat-label">Machines</span><span class="stat-note">[Owner: total stations]</span></div>
+    <div class="stat reveal"><span class="stat-num">TBA</span><span class="stat-label">Member Cap</span><span class="stat-note">[Owner: capped roster]</span></div>
+    <div class="stat reveal"><span class="stat-num">18H</span><span class="stat-label">Open Daily</span><span class="stat-note">6:00 to midnight</span></div>
+  </div>
+</section>
+
+<!-- EQUIPMENT -->
+<section class="section" id="equipment">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Equipment</span>
+      <h2>What you'll train on.</h2>
+      <p>Four makers on the floor. Pick one to see what's running.</p>
+    </div>
+
+    <div class="eq-tabs reveal" role="tablist" aria-label="Equipment brands">
+      <button class="eq-tab" role="tab" aria-selected="true" data-brand="prime" id="tab-prime">Prime Fitness</button>
+      <button class="eq-tab" role="tab" aria-selected="false" data-brand="nautilus" id="tab-nautilus">Nautilus</button>
+      <button class="eq-tab" role="tab" aria-selected="false" data-brand="newtech" id="tab-newtech">Newtech</button>
+      <button class="eq-tab" role="tab" aria-selected="false" data-brand="irontemple" id="tab-irontemple">Iron Temple</button>
+    </div>
+
+    <div class="eq-stage reveal">
+      <div class="eq-panel active shown" data-brand="prime" role="tabpanel" aria-labelledby="tab-prime">
+        <div class="eq-media"><img src="prime.png" alt="Prime Fitness machine"></div>
+        <div class="eq-text">
+          <span class="eyebrow">Prime Fitness</span>
+          <h3>[Owner: Prime headline or machine name]</h3>
+          <p class="eq-copy">[Owner: why you chose Prime Fitness, the machines you run, what makes them worth travelling for. No muscle groups or specs unless you can confirm them.]</p>
+          <ul class="eq-list">
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="eq-panel" data-brand="nautilus" role="tabpanel" aria-labelledby="tab-nautilus">
+        <div class="eq-media"><img src="nautilus.png" alt="Nautilus machine"></div>
+        <div class="eq-text">
+          <span class="eyebrow">Nautilus</span>
+          <h3>[Owner: Nautilus headline or machine name]</h3>
+          <p class="eq-copy">[Owner: why you chose Nautilus, which pieces are on the floor, what they bring. No invented muscle groups or counts.]</p>
+          <ul class="eq-list">
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="eq-panel" data-brand="newtech" role="tabpanel" aria-labelledby="tab-newtech">
+        <div class="eq-media"><img src="newtech.png" alt="Newtech machine"></div>
+        <div class="eq-text">
+          <span class="eyebrow">Newtech</span>
+          <h3>[Owner: Newtech headline or machine name]</h3>
+          <p class="eq-copy">[Owner: why you chose Newtech, the pieces you run, what sets them apart. No invented specs.]</p>
+          <ul class="eq-list">
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+            <li>[Owner: machine name]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="eq-panel" data-brand="irontemple" role="tabpanel" aria-labelledby="tab-irontemple">
+        <div class="eq-media"><img src="bootybuilder.png" alt="Custom Iron Temple equipment"></div>
+        <div class="eq-text">
+          <span class="eyebrow">Iron Temple Custom</span>
+          <h3>[Owner: custom equipment headline]</h3>
+          <p class="eq-copy">[Owner: describe the custom Iron Temple free weights and branded pieces, what's custom and why you built it. No invented dumbbell ranges or counts.]</p>
+          <ul class="eq-list">
+            <li>[Owner: dumbbell range or detail]</li>
+            <li>[Owner: barbell or plate detail]</li>
+            <li>[Owner: custom piece]</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="section" id="philosophy">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Philosophy</span>
+      <h2>Three rules.<br>No exceptions.</h2>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <h3>Equipment First</h3>
+        <p>The money goes into the iron, not the lobby. Every machine here was picked because it trains the muscle properly. No filler stations, no broken cables, no cheap substitutes to save a few euro.</p>
+      </div>
+      <div class="pillar reveal">
+        <h3>No Noise</h3>
+        <p>No group classes. No circuits. No timed buzzers, no synced playlists. You come here to put in the work, and that is the only thing this place is built for.</p>
+      </div>
+      <div class="pillar reveal">
+        <h3>Earned Access</h3>
+        <p>Membership is limited and kept that way on purpose. A capped roster means open equipment, room to move, and a floor full of people who take it as seriously as you do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Floor</span>
+      <h2>A look inside.</h2>
+    </div>
+    <div class="gallery">
+      <div class="gtile reveal"><img src="prime.png" alt="Prime Fitness machine"><span>Prime Fitness</span></div>
+      <div class="gtile reveal"><img src="nautilus.png" alt="Nautilus machine"><span>Nautilus</span></div>
+      <div class="gtile reveal"><img src="newtech.png" alt="Newtech machine"><span>Newtech</span></div>
+      <div class="gtile reveal"><img src="bootybuilder.png" alt="Custom Iron Temple equipment"><span>Iron Temple</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBERSHIPS -->
+<section class="section" id="memberships">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Membership</span>
+      <h2>Three ways in.</h2>
+      <p>Memberships aren't on sale yet. These are the tiers for launch. Join the waitlist and founding members go first.</p>
+    </div>
+    <div class="plans">
+      <div class="plan featured reveal">
+        <span class="plan-tag">Founding Member</span>
+        <div class="plan-head">First In</div>
+        <div class="plan-sub">Founding members only</div>
+        <p class="plan-desc">For the first members through the door. Your rate stays locked in for as long as you keep your membership.</p>
+        <ul class="plan-feats">
+          <li>Rate locked in for life</li>
+          <li>First access the day doors open</li>
+          <li>[Owner: founding-only perk, e.g. locker or guest passes]</li>
+          <li>Limited founding spots</li>
+        </ul>
+        <button class="btn btn-primary" data-scroll="#waitlist">Claim a Founding Spot</button>
+      </div>
+
+      <div class="plan reveal">
+        <span class="plan-tag">Standard</span>
+        <div class="plan-head">Full Access</div>
+        <div class="plan-sub">Opens after founding</div>
+        <p class="plan-desc">Full run of the floor and every piece of equipment, once general membership opens.</p>
+        <ul class="plan-feats">
+          <li>Full access to the floor and equipment</li>
+          <li>[Owner: what standard includes]</li>
+          <li>Open 6:00 to midnight, daily</li>
+        </ul>
+        <button class="btn btn-ghost" data-scroll="#waitlist">Join the Waitlist</button>
+      </div>
+
+      <div class="plan reveal">
+        <span class="plan-tag">Day Pass</span>
+        <div class="plan-head">Drop-In</div>
+        <div class="plan-sub">For visiting athletes</div>
+        <p class="plan-desc">For competitors and athletes passing through who want a real session, not a tourist gym.</p>
+        <ul class="plan-feats">
+          <li>[Owner: day-pass terms or availability]</li>
+          <li>[Owner: any requirements]</li>
+        </ul>
+        <button class="btn btn-ghost" data-scroll="#waitlist">Enquire</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="section waitlist" id="waitlist">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Founding Access</span>
+      <h2>Get on the list.</h2>
+      <p>Founding members get first access and lock in their rate for life. Spots are limited. Leave your email and we'll reach out before anyone else.</p>
+    </div>
+    <div class="reveal">
+      <div class="wl-form">
+        <input type="email" id="wl-email" placeholder="your@email.com" autocomplete="email" aria-label="Email address">
+        <button class="btn btn-primary" id="wl-submit">Request Access</button>
+      </div>
+      <p class="wl-hint">No spam. One email when access opens.</p>
+      <p class="wl-msg" id="wl-msg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img class="footer-logo" src="logo.png" alt="Iron Temple">
+        <p class="footer-about">Built by Louis Bartholomeus, a young competitive bodybuilder from Mol who wanted a place to train without the noise.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Location</h4>
+        <p>[Owner: address line 1]</p>
+        <p>[Owner: city / postcode]</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:[Owner: email]">[Owner: email]</a>
+        <a href="#waitlist">Join the waitlist</a>
+      </div>
+      <div class="footer-col">
+        <h4>Follow</h4>
+        <a href="[Owner: instagram url]" target="_blank" rel="noopener">[Owner: @handle]</a>
+        <a href="[Owner: other social]" target="_blank" rel="noopener">[Owner: handle]</a>
+      </div>
+    </div>
+    <div class="footer-base">
+      <span>&copy; <span id="year"></span> Iron Temple. All rights reserved.</span>
+      <span>No circuits. No classes. No compromise.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---- Supabase config (fill these in after creating the project) ---- */
+const SUPABASE_URL = '[Owner: https://YOUR-PROJECT.supabase.co]';
+const SUPABASE_ANON_KEY = '[Owner: your anon public key]';
+const WAITLIST_SOURCE = 'iron-temple-prelaunch';
+
+(function(){
+  'use strict';
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* load animation */
+  function markLoaded(){ document.body.classList.add('loaded'); }
+  if(document.readyState === 'complete'){ markLoaded(); }
+  else { window.addEventListener('load', markLoaded); }
+
+  /* nav frosted on scroll */
+  var nav = document.getElementById('nav');
+  function onScroll(){ nav.classList.toggle('scrolled', window.scrollY > 40); }
+  onScroll(); window.addEventListener('scroll', onScroll, {passive:true});
+
+  /* smooth scroll buttons */
+  document.querySelectorAll('[data-scroll]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var t = document.querySelector(b.dataset.scroll);
+      if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+
+  /* reveal with stagger per group */
+  var groups = new Map();
+  document.querySelectorAll('.reveal').forEach(function(el){
+    var p = el.parentElement;
+    var i = groups.get(p) || 0;
+    el.style.setProperty('--d', (i * 90) + 'ms');
+    groups.set(p, i + 1);
+  });
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
+  }
+
+  /* equipment tabs cross-fade */
+  var tabs = document.querySelectorAll('.eq-tab');
+  function selectTab(brand){
+    var current = document.querySelector('.eq-panel.active');
+    var next = document.querySelector('.eq-panel[data-brand="'+brand+'"]');
+    if(!next || next === current) return;
+    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.brand === brand ? 'true' : 'false'); });
+    if(current){
+      current.classList.remove('shown');
+      setTimeout(function(){
+        current.classList.remove('active');
+        next.classList.add('active');
+        void next.offsetWidth;
+        next.classList.add('shown');
+      }, 180);
+    } else {
+      next.classList.add('active'); void next.offsetWidth; next.classList.add('shown');
+    }
+  }
+  tabs.forEach(function(t){ t.addEventListener('click', function(){ selectTab(t.dataset.brand); }); });
+
+  /* waitlist submit */
+  var emailEl = document.getElementById('wl-email');
+  var btn = document.getElementById('wl-submit');
+  var msg = document.getElementById('wl-msg');
+  function setMsg(text, type){ msg.textContent = text; msg.className = 'wl-msg ' + (type || ''); }
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function submit(){
+    var email = (emailEl.value || '').trim().toLowerCase();
+    if(!validEmail(email)){ setMsg('Enter a valid email address.', 'err'); return; }
+    if(SUPABASE_URL.indexOf('[Owner') === 0 || SUPABASE_ANON_KEY.indexOf('[Owner') === 0){
+      setMsg('Waitlist isn\'t connected yet. Add your Supabase URL and anon key.', 'err');
+      return;
+    }
+    btn.disabled = true; setMsg('Submitting...', '');
+    fetch(SUPABASE_URL + '/rest/v1/waitlist', {
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization':'Bearer ' + SUPABASE_ANON_KEY,
+        'Prefer':'return=minimal'
+      },
+      body: JSON.stringify({ email: email, source: WAITLIST_SOURCE })
+    }).then(function(res){
+      btn.disabled = false;
+      if(res.status === 201 || res.ok){
+        emailEl.value = '';
+        setMsg('You\'re on the list. We\'ll be in touch.', 'ok');
+      } else if(res.status === 409){
+        setMsg('You\'re already on the list.', 'ok');
+      } else {
+        res.text().then(function(t){ console.error('Waitlist error', res.status, t); });
+        setMsg('Something went wrong. Try again.', 'err');
+      }
+    }).catch(function(err){
+      btn.disabled = false; console.error(err);
+      setMsg('Network error. Try again.', 'err');
+    });
+  }
+  btn.addEventListener('click', submit);
+  emailEl.addEventListener('keydown', function(e){ if(e.key === 'Enter') submit(); });
+})();
+</script>
+</body>
+</html>
