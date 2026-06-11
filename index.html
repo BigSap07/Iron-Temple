@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iron Temple | Private Training Facility</title>
-<meta name="description" content="Iron Temple is a private hardcore training facility for serious athletes. Prime Fitness, Nautilus, Newtech and custom Iron Temple iron. No circuits. No classes. No compromise on equipment.">
+<title>Iron Temple | Hardcore Training Facility</title>
+<meta name="description" content="Iron Temple is a hardcore training facility for serious athletes. Prime Fitness, Nautilus, Newtech and custom Iron Temple iron. Premium priced, capped floor, no crowds. No circuits. No classes. No compromise on equipment.">
 <meta name="theme-color" content="#000000">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -55,14 +55,18 @@
 
   .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 28px}
 
-  /* signature: brushed-steel display text */
+  /* signature 1: brushed-steel display text */
   .steel{
     color:#cfcfcf;
     background:linear-gradient(176deg,#ffffff 0%,#c9c9c9 22%,#7e7e7e 44%,#ededed 56%,#9a9a9a 74%,#666 100%);
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
-
-  /* signature: machined plate with corner ticks */
+  /* signature 2: etched outline type */
+  .etch{
+    color:transparent;
+    -webkit-text-stroke:1px rgba(232,232,232,.22);
+  }
+  /* signature 3: machined plate with brass corner ticks */
   .plate{position:relative;border:1px solid var(--line)}
   .plate i.tick{position:absolute;width:14px;height:14px;pointer-events:none}
   .plate i.tick::before,.plate i.tick::after{content:"";position:absolute;background:var(--brass)}
@@ -78,15 +82,17 @@
 
   .progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--brass);z-index:200;transition:width .1s linear}
 
-  /* NAV */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;border-bottom:1px solid transparent;transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease)}
+  /* NAV (links truly centered) */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:120;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:18px 28px;border-bottom:1px solid transparent;transition:background .4s var(--ease),padding .4s var(--ease),border-color .4s var(--ease)}
   .nav.scrolled{background:rgba(0,0,0,.62);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:12px 28px}
+  .nav-home{justify-self:start;display:flex}
   .nav-logo{height:40px;width:auto;mix-blend-mode:lighten}
-  .nav-links{display:flex;gap:32px;align-items:center}
+  .nav-links{justify-self:center;display:flex;gap:36px;align-items:center}
   .nav-links a{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);position:relative;padding:4px 0;transition:color .25s}
   .nav-links a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--brass);transition:width .3s var(--ease)}
   .nav-links a:hover{color:var(--text)}
   .nav-links a:hover::after{width:100%}
+  .nav-right{justify-self:end;display:flex;align-items:center}
   .nav-cta{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--text);border:1px solid var(--line-strong);padding:9px 16px;background:none;cursor:pointer;transition:border-color .25s,color .25s}
   .nav-cta:hover{border-color:var(--brass);color:var(--brass)}
   .nav-burger{display:none;background:none;border:none;cursor:pointer;width:40px;height:40px;position:relative;z-index:151}
@@ -110,51 +116,58 @@
   .btn-ghost{background:transparent;color:var(--text);border-color:var(--line-strong)}
   .btn-ghost:hover{border-color:var(--brass);color:var(--brass)}
 
-  /* HERO */
-  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  /* HERO: framed title card */
+  .hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
   .hero-bg{position:absolute;inset:0;z-index:0;background:url('nautilus.jpg') center 20% / cover no-repeat;filter:grayscale(25%);opacity:.20}
-  .hero-glow{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);width:min(720px,90vw);height:min(720px,90vw);z-index:1;pointer-events:none;background:radial-gradient(circle, var(--brass-glow) 0%, transparent 62%)}
+  .hero-glow{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);width:min(720px,90vw);height:min(720px,90vw);z-index:1;pointer-events:none;background:radial-gradient(circle, var(--brass-glow) 0%, transparent 62%)}
   .hero-veil{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 90% at 50% 28%, transparent 0%, rgba(0,0,0,.5) 70%, #000 100%),linear-gradient(180deg, rgba(0,0,0,.6) 0%, transparent 26%, transparent 52%, #000 100%)}
-  .hero-rail{position:absolute;top:50%;z-index:2;font-family:var(--mono);font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--faint);white-space:nowrap}
-  .hero-rail.left{left:28px;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl}
-  .hero-rail.right{right:28px;transform:translateY(-50%);writing-mode:vertical-rl}
-  .hero-eyebrow{position:relative;z-index:2;margin-top:96px}
-  .hero-logo-wrap{position:relative;z-index:2;flex:1;display:flex;align-items:center;justify-content:center}
+  .hero-frame{position:absolute;inset:14px;z-index:2;pointer-events:none;border-color:var(--line)}
+  .hero-inner{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;padding:96px 56px 38px}
+  .hero-meta{display:flex;justify-content:space-between;align-items:center;opacity:0}
+  .hero-meta .mono{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
+  .hero-logo-wrap{flex:1;display:flex;align-items:center;justify-content:center}
   .hero-logo{width:min(380px,66vw);height:auto;mix-blend-mode:lighten;opacity:0;transform:scale(.98);filter:drop-shadow(0 0 40px rgba(0,0,0,.6))}
-  .hero-bottom{position:relative;z-index:2;width:100%;padding:0 28px 40px;opacity:0;transform:translateY(28px)}
-  .hero-tag{font-weight:300;color:var(--text);font-size:clamp(15px,2.1vw,20px);max-width:660px;margin:0 auto 30px;line-height:1.55}
+  .hero-low{border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1.2fr) auto;gap:32px;align-items:center;padding-top:30px;opacity:0;transform:translateY(24px)}
+  .hero-tag{font-weight:300;color:var(--text);font-size:clamp(15px,1.9vw,19px);max-width:560px;line-height:1.55;text-align:left}
   .hero-tag b{color:var(--brass-hi);font-weight:500}
-  .hero-ctas{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-  .scroll-cue{margin-top:42px;display:flex;flex-direction:column;align-items:center;gap:12px}
-  .scroll-cue span{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint)}
-  .scroll-cue i{display:block;width:1px;height:42px;background:linear-gradient(var(--brass),transparent);position:relative;overflow:hidden}
-  .scroll-cue i::after{content:"";position:absolute;top:-42px;left:0;width:1px;height:42px;background:linear-gradient(transparent,var(--text));animation:drop 2.2s var(--ease) infinite}
-  @keyframes drop{0%{transform:translateY(0)}60%,100%{transform:translateY(84px)}}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end}
   .loaded .hero-logo{animation:logoIn 1.4s var(--ease) .3s forwards}
-  .loaded .hero-bottom{animation:fadeUp 1s var(--ease) 1.1s forwards}
+  .loaded .hero-meta{animation:fadeIn 1s var(--ease) .9s forwards}
+  .loaded .hero-low{animation:fadeUp 1s var(--ease) 1.1s forwards}
   @keyframes logoIn{to{opacity:1;transform:scale(1)}}
   @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{to{opacity:1}}
 
-  /* SECTION SHELL */
-  .section{padding:130px 0;border-top:1px solid var(--line);position:relative;z-index:2}
-  .section-head{margin-bottom:64px;max-width:760px}
-  .section-head h2{font-family:var(--display);font-weight:400;line-height:.92;letter-spacing:.01em;font-size:clamp(44px,7.5vw,92px);margin-top:18px}
-  .section-head p{color:var(--muted);margin-top:20px;font-size:16px;max-width:560px}
+  /* MARQUEE: etched creed strip */
+  .marquee{position:relative;z-index:2;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;background:var(--s1)}
+  .marquee-track{display:flex;width:max-content;animation:slide 46s linear infinite}
+  .marquee-half{display:flex;align-items:baseline;gap:56px;padding-right:56px}
+  .marquee-half span{font-family:var(--display);font-size:clamp(38px,5.5vw,64px);letter-spacing:.05em;line-height:1;white-space:nowrap}
+  .marquee-half em{font-style:normal;color:var(--brass);font-size:clamp(20px,3vw,30px);transform:translateY(-8px)}
+  @keyframes slide{to{transform:translateX(-50%)}}
 
-  /* SPEC PLATE (stats) */
-  .specplate-wrap{position:relative;z-index:2;padding:96px 0;border-top:1px solid var(--line)}
+  /* SECTION SHELL: asymmetric heads */
+  .section{padding:130px 0;position:relative;z-index:2}
+  .section + .section{border-top:1px solid var(--line)}
+  .section-head{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:48px;align-items:end;margin-bottom:72px}
+  .section-head .eyebrow{grid-column:1/-1}
+  .section-head h2{font-family:var(--display);font-weight:400;line-height:.9;letter-spacing:.01em;font-size:clamp(48px,8.5vw,108px);margin-top:6px}
+  .section-head p{color:var(--muted);font-size:16px;max-width:460px;justify-self:end;padding-bottom:10px}
+
+  /* SPEC PLATE */
+  .specplate-wrap{position:relative;z-index:2;padding:96px 0}
   .specplate{background:var(--s1);display:grid;grid-template-columns:repeat(4,1fr)}
   .spec{padding:48px 28px;text-align:center;position:relative}
   .spec:not(:last-child)::after{content:"";position:absolute;right:0;top:26%;height:48%;width:1px;background:var(--line)}
   .spec-num{font-family:var(--display);font-size:clamp(40px,4.6vw,58px);display:block;line-height:1}
-  .spec-num.pending{color:rgba(232,232,232,.18);-webkit-text-fill-color:initial;background:none}
+  .spec-num.pending{color:rgba(232,232,232,.18)}
   .spec-label{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--brass);display:block;margin-top:16px}
   .spec-note{font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint);display:block;margin-top:8px}
   .spec.live .spec-num{color:var(--brass-hi)}
   .spec.live .spec-label{color:var(--text)}
 
   /* EQUIPMENT */
-  .eq-layout{display:grid;grid-template-columns:280px 1fr;gap:72px;align-items:start}
+  .eq-layout{display:grid;grid-template-columns:280px 1fr;gap:64px;align-items:start}
   .manifest{display:flex;flex-direction:column;border-top:1px solid var(--line-strong);position:sticky;top:110px}
   .manifest-label{font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);padding:16px 0 6px}
   .eq-tab{background:none;border:none;border-bottom:1px solid var(--line);cursor:pointer;text-align:left;padding:20px 0 20px 22px;position:relative;transition:padding .3s var(--ease)}
@@ -168,27 +181,30 @@
   .eq-tab[aria-selected="true"] span{color:var(--brass)}
 
   .eq-stage{position:relative}
-  .eq-panel{display:none;opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease);grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:52px;align-items:center}
+  .eq-panel{display:none;opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .45s var(--ease);grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:0;align-items:center}
   .eq-panel.active{display:grid}
   .eq-panel.shown{opacity:1;transform:translateY(0)}
   .eq-media{position:relative;background:var(--s2);overflow:hidden}
   .eq-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/5;transition:transform 1.1s var(--ease)}
   .eq-media:hover img{transform:scale(1.04)}
-  .eq-spec{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);display:inline-block;margin-bottom:14px;border:1px solid var(--brass-lo);padding:7px 12px}
-  .eq-text h3{font-family:var(--display);font-weight:400;font-size:clamp(40px,5.5vw,68px);line-height:.94;margin-bottom:20px;letter-spacing:.01em}
-  .eq-copy{color:var(--muted);font-size:15.5px;margin-bottom:28px;max-width:520px}
-  .eq-list{list-style:none}
+  .eq-text{position:relative;z-index:2;padding-left:56px}
+  .eq-text h3{font-family:var(--display);font-weight:400;font-size:clamp(40px,6vw,84px);line-height:.9;margin-bottom:22px;letter-spacing:.01em;margin-left:-150px;filter:drop-shadow(0 6px 28px rgba(0,0,0,.85))}
+  .eq-spec{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--brass);display:inline-block;margin-bottom:16px;border:1px solid var(--brass-lo);padding:7px 12px}
+  .eq-copy{color:var(--muted);font-size:15.5px;margin-bottom:28px;max-width:500px}
+  .eq-list{list-style:none;max-width:500px}
   .eq-list li{font-family:var(--mono);font-size:12.5px;color:var(--faint);padding:13px 0;border-top:1px solid var(--line);letter-spacing:.02em;display:flex;gap:12px}
   .eq-list li::before{content:"\002B";color:var(--brass)}
 
-  /* PHILOSOPHY: house rules as engraved rows */
+  /* PHILOSOPHY: house rules rows */
   .rules{border-top:1px solid var(--line-strong)}
   .rule{display:grid;grid-template-columns:140px minmax(0,1fr) minmax(0,1.3fr);gap:40px;align-items:baseline;padding:52px 0;border-bottom:1px solid var(--line)}
   .rule-mark{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--brass)}
   .rule h3{font-family:var(--display);font-weight:400;font-size:clamp(34px,4.5vw,52px);letter-spacing:.01em;line-height:.95}
   .rule p{color:var(--muted);font-size:15px;max-width:520px}
 
-  /* GALLERY: editorial asymmetric grid */
+  /* GALLERY: full-bleed editorial grid */
+  .gallery-wrap{padding:0 14px}
+  .gallery-head{max-width:var(--maxw);margin:0 auto 56px;padding:0 14px}
   .gallery{display:grid;grid-template-columns:1.15fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}
   .gtile{position:relative;overflow:hidden;background:var(--s2)}
   .gtile img{width:100%;height:100%;object-fit:cover;transition:transform .9s var(--ease),filter .9s var(--ease);filter:grayscale(20%)}
@@ -201,9 +217,10 @@
   .gcap b{font-family:var(--display);font-weight:400;font-size:24px;letter-spacing:.02em;display:block;color:var(--text)}
   .gcap span{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass)}
 
-  /* WAITLIST: the climax */
-  .waitlist{position:relative;text-align:center;overflow:hidden;padding:160px 0}
+  /* WAITLIST */
+  .waitlist{position:relative;text-align:center;overflow:hidden;padding:170px 0}
   .wl-glow{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:min(900px,120vw);height:min(900px,120vw);pointer-events:none;background:radial-gradient(circle, var(--brass-glow) 0%, transparent 60%)}
+  .wl-backdrop{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);font-family:var(--display);font-size:clamp(120px,26vw,340px);letter-spacing:.06em;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(232,232,232,.06);pointer-events:none;white-space:nowrap}
   .waitlist .container{position:relative;z-index:2}
   .waitlist .eyebrow{justify-content:center}
   .waitlist .eyebrow::after{content:"";width:32px;height:1px;background:var(--brass);opacity:.7}
@@ -230,9 +247,9 @@
   .footer-col a:hover{color:var(--text)}
   .footer-base{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint)}
 
-  /* REVEAL */
-  .reveal{opacity:0;transform:translateY(28px);filter:blur(6px);transition:opacity .9s var(--ease),transform .9s var(--ease),filter .9s var(--ease);transition-delay:var(--d,0ms)}
-  .reveal.is-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+  /* REVEAL (no blur: cleaner, less generated-looking) */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0ms)}
+  .reveal.is-visible{opacity:1;transform:translateY(0)}
 
   @media(max-width:1020px){
     .eq-layout{grid-template-columns:1fr;gap:40px}
@@ -245,20 +262,28 @@
     .eq-tab[aria-selected="true"]::before{transform:scaleX(1)}
     .eq-tab b{font-size:22px}
     .eq-tab span{display:none}
+    .eq-text h3{margin-left:0}
+    .eq-text{padding-left:0}
+    .eq-panel.active{grid-template-columns:1fr;gap:32px}
   }
   @media(max-width:920px){
     .specplate{grid-template-columns:repeat(2,1fr)}
     .spec:nth-child(2)::after{display:none}
-    .eq-panel.active{grid-template-columns:1fr;gap:32px}
+    .section-head{grid-template-columns:1fr;gap:20px;align-items:start}
+    .section-head p{justify-self:start;padding-bottom:0}
     .rule{grid-template-columns:1fr;gap:14px;padding:40px 0}
     .gallery{grid-template-columns:1fr 1fr}
     .gtile.tall{grid-column:1/3;grid-row:auto;aspect-ratio:16/10}
     .gtile.wide{grid-column:1/3;grid-row:auto;aspect-ratio:16/10}
     .footer-grid{grid-template-columns:1fr 1fr;gap:32px}
-    .hero-rail{display:none}
+    .hero-inner{padding:90px 32px 30px}
+    .hero-low{grid-template-columns:1fr;gap:22px}
+    .hero-ctas{justify-content:flex-start}
   }
   @media(max-width:640px){
-    .nav-links,.nav .nav-cta{display:none}
+    .nav{grid-template-columns:auto 1fr auto}
+    .nav-links{display:none}
+    .nav-right .nav-cta{display:none}
     .nav-burger{display:block}
     .section{padding:88px 0}
     .waitlist{padding:110px 0}
@@ -268,12 +293,15 @@
     .footer-grid{grid-template-columns:1fr}
     .container{padding:0 20px}
     .nav,.nav.scrolled{padding-left:20px;padding-right:20px}
+    .hero-frame{inset:10px}
+    .hero-inner{padding:84px 24px 24px}
+    .hero-meta .mono:last-child{display:none}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    .hero-logo,.hero-bottom,.reveal{opacity:1!important;transform:none!important;filter:none!important}
+    .hero-logo,.hero-low,.hero-meta,.reveal{opacity:1!important;transform:none!important}
     .eq-panel.active{opacity:1!important;transform:none!important}
-    .scroll-cue i::after{display:none}
+    .marquee-track{transform:none!important}
   }
 </style>
 </head>
@@ -283,14 +311,16 @@
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#top" aria-label="Iron Temple home"><img class="nav-logo" src="logo.png" alt="Iron Temple"></a>
+  <a class="nav-home" href="#top" aria-label="Iron Temple home"><img class="nav-logo" src="logo.png" alt="Iron Temple"></a>
   <div class="nav-links">
     <a href="#equipment">Equipment</a>
     <a href="#philosophy">Philosophy</a>
     <a href="#gallery">Gallery</a>
   </div>
-  <button class="nav-cta" data-scroll="#waitlist">Join the Waitlist</button>
-  <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+  <div class="nav-right">
+    <button class="nav-cta" data-scroll="#waitlist">Join the Waitlist</button>
+    <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span></button>
+  </div>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
@@ -300,26 +330,47 @@
   <button class="btn btn-primary menu-cta" data-scroll="#waitlist" data-close>Join the Waitlist</button>
 </div>
 
-<!-- HERO -->
+<!-- HERO: framed title card -->
 <header class="hero" id="top">
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-veil" aria-hidden="true"></div>
-  <span class="hero-rail left" aria-hidden="true">Private Members Facility</span>
-  <span class="hero-rail right" aria-hidden="true">Iron Temple</span>
-  <span class="eyebrow hero-eyebrow">Private Members Facility</span>
-  <div class="hero-logo-wrap">
-    <img class="hero-logo" src="logo.png" alt="Iron Temple">
-  </div>
-  <div class="hero-bottom">
-    <p class="hero-tag">A private training facility built for serious athletes. <b>No circuits. No classes. No compromise on equipment.</b></p>
-    <div class="hero-ctas">
-      <button class="btn btn-primary" data-scroll="#waitlist">Join the Waitlist</button>
-      <button class="btn btn-ghost" data-scroll="#equipment">View the Equipment</button>
+  <div class="hero-frame plate" aria-hidden="true"><i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i></div>
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span class="mono">Hardcore Training Facility</span>
+      <span class="mono">Opening Soon</span>
     </div>
-    <div class="scroll-cue"><i></i><span>Opening soon</span></div>
+    <div class="hero-logo-wrap">
+      <img class="hero-logo" src="logo.png" alt="Iron Temple">
+    </div>
+    <div class="hero-low">
+      <p class="hero-tag">A training facility built for serious athletes. <b>No circuits. No classes. No compromise on equipment.</b></p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" data-scroll="#waitlist">Join the Waitlist</button>
+        <button class="btn btn-ghost" data-scroll="#equipment">View the Equipment</button>
+      </div>
+    </div>
   </div>
 </header>
+
+<!-- CREED STRIP -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee-track">
+    <div class="marquee-half">
+      <span class="etch">No Circuits</span><em>+</em>
+      <span class="etch">No Classes</span><em>+</em>
+      <span class="steel">No Compromise on Equipment</span><em>+</em>
+      <span class="etch">Open 6:00 to Midnight</span><em>+</em>
+    </div>
+    <div class="marquee-half">
+      <span class="etch">No Circuits</span><em>+</em>
+      <span class="etch">No Classes</span><em>+</em>
+      <span class="steel">No Compromise on Equipment</span><em>+</em>
+      <span class="etch">Open 6:00 to Midnight</span><em>+</em>
+    </div>
+  </div>
+</div>
 
 <!-- SPEC PLATE -->
 <section class="specplate-wrap">
@@ -358,8 +409,8 @@
         <div class="eq-panel active shown" data-brand="prime" role="tabpanel" aria-labelledby="tab-prime">
           <div class="eq-media plate"><i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i><img src="prime.jpg" alt="Prime Fitness machine"></div>
           <div class="eq-text">
-            <span class="eq-spec">Made in USA &middot; SmartStrength</span>
             <h3 class="steel">Prime Fitness</h3>
+            <span class="eq-spec">Made in USA &middot; SmartStrength</span>
             <p class="eq-copy">Prime built its name on biomechanics instead of brute steel. Every machine carries their patented SmartStrength system, which lets you shift the peak resistance to the lengthened, mid, or shortened part of the range. You load the muscle the way it actually produces force, from origin to insertion, and you feel it change rep to rep. The bearings and cables track so cleanly that heavy still feels smooth. It is premium American iron, and most commercial gyms never get near it.</p>
             <ul class="eq-list">
               <li>Patented SmartStrength variable resistance</li>
@@ -373,8 +424,8 @@
         <div class="eq-panel" data-brand="nautilus" role="tabpanel" aria-labelledby="tab-nautilus">
           <div class="eq-media plate"><i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i><img src="nautilus.jpg" alt="Nautilus machine" loading="lazy"></div>
           <div class="eq-text">
-            <span class="eq-spec">Since 1970 &middot; The original cam</span>
             <h3 class="steel">Nautilus</h3>
+            <span class="eq-spec">Since 1970 &middot; The original cam</span>
             <p class="eq-copy">Nautilus is where machine training started. In 1970 Arthur Jones cut the shell-shaped cam that gave resistance a curve, matching the load to your strength through the full range instead of fighting it. Heaviest where you are strong, lighter where you are exposed, kinder on the joints and harder on the muscle. The pieces on our floor carry that same engineering. This is heritage iron that still trains better than most machines built today.</p>
             <ul class="eq-list">
               <li>The original shell cam, proven since 1970</li>
@@ -388,8 +439,8 @@
         <div class="eq-panel" data-brand="newtech" role="tabpanel" aria-labelledby="tab-newtech">
           <div class="eq-media plate"><i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i><img src="newtech.jpg" alt="Newtech machine" loading="lazy"></div>
           <div class="eq-text">
-            <span class="eq-spec">South Korea &middot; M Torture</span>
             <h3 class="steel">Newtech</h3>
+            <span class="eq-spec">South Korea &middot; M Torture</span>
             <p class="eq-copy">Newtech is the South Korean brand the Mr. Olympia stage runs on. The M Torture plate-loaded line is built around the big compound lifts and the large muscle groups, with grip and foot positions that adjust to any frame so the strength line stays honest whether you are short or tall. Heavy, dead smooth, and finished in top-tier materials. It has earned a hard following with serious bodybuilders, and you feel why the moment you load the first plate.</p>
             <ul class="eq-list">
               <li>M Torture plate-loaded series</li>
@@ -403,8 +454,8 @@
         <div class="eq-panel" data-brand="irontemple" role="tabpanel" aria-labelledby="tab-irontemple">
           <div class="eq-media plate"><i class="tick tl"></i><i class="tick tr"></i><i class="tick bl"></i><i class="tick br"></i><img src="bootybuilder.jpg" alt="Custom Iron Temple equipment" loading="lazy"></div>
           <div class="eq-text">
-            <span class="eq-spec">Forged in-house</span>
             <h3 class="steel">Iron Temple</h3>
+            <span class="eq-spec">Forged in-house</span>
             <p class="eq-copy">Part of the floor wears our own name. Branded free weights and a handful of purpose-built pieces, chosen and finished to do the basics heavy and do them right. No screens, no rep counters, no gimmicks. Just iron that holds up to real work and looks like it belongs in a temple.</p>
             <ul class="eq-list">
               <li>Iron Temple branded free weights</li>
@@ -439,32 +490,31 @@
       </div>
       <div class="rule reveal">
         <span class="rule-mark">Rule 03</span>
-        <h3>Earned Access</h3>
-        <p>Membership is limited and kept that way on purpose. A capped roster means open equipment, room to move, and a floor full of people who take it as seriously as you do.</p>
+        <h3>Expensive on Purpose</h3>
+        <p>This is not a cheap gym and it never will be. The price does the filtering. It keeps the floor uncrowded and it keeps out the people who don't respect the equipment or the lifters next to them. Anyone willing to pay for that is welcome.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- GALLERY -->
-<section class="section" id="gallery">
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">The Floor</span>
-      <h2 class="steel">A look inside.</h2>
-    </div>
-    <div class="gallery">
-      <div class="gtile tall reveal"><img src="prime.jpg" alt="Prime Fitness machine" loading="lazy"><div class="gcap"><b>Prime Fitness</b><span>SmartStrength</span></div></div>
-      <div class="gtile sq reveal"><img src="nautilus.jpg" alt="Nautilus machine" loading="lazy"><div class="gcap"><b>Nautilus</b><span>The original cam</span></div></div>
-      <div class="gtile sq reveal"><img src="newtech.jpg" alt="Newtech machine" loading="lazy"><div class="gcap"><b>Newtech</b><span>M Torture</span></div></div>
-      <div class="gtile wide reveal"><img src="bootybuilder.jpg" alt="Custom Iron Temple equipment" loading="lazy"><div class="gcap"><b>Iron Temple</b><span>Forged in-house</span></div></div>
-    </div>
+<section class="section gallery-wrap" id="gallery">
+  <div class="gallery-head reveal">
+    <span class="eyebrow">The Floor</span>
+    <h2 class="steel" style="font-family:var(--display);font-weight:400;line-height:.9;font-size:clamp(48px,8.5vw,108px);margin-top:6px">A look inside.</h2>
+  </div>
+  <div class="gallery">
+    <div class="gtile tall reveal"><img src="prime.jpg" alt="Prime Fitness machine" loading="lazy"><div class="gcap"><b>Prime Fitness</b><span>SmartStrength</span></div></div>
+    <div class="gtile sq reveal"><img src="nautilus.jpg" alt="Nautilus machine" loading="lazy"><div class="gcap"><b>Nautilus</b><span>The original cam</span></div></div>
+    <div class="gtile sq reveal"><img src="newtech.jpg" alt="Newtech machine" loading="lazy"><div class="gcap"><b>Newtech</b><span>M Torture</span></div></div>
+    <div class="gtile wide reveal"><img src="bootybuilder.jpg" alt="Custom Iron Temple equipment" loading="lazy"><div class="gcap"><b>Iron Temple</b><span>Forged in-house</span></div></div>
   </div>
 </section>
 
 <!-- WAITLIST -->
 <section class="section waitlist" id="waitlist">
   <div class="wl-glow" aria-hidden="true"></div>
+  <span class="wl-backdrop" aria-hidden="true">ACCESS</span>
   <div class="container">
     <div class="reveal">
       <span class="eyebrow">The Waitlist</span>
