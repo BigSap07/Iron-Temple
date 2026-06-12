@@ -223,6 +223,27 @@
     .base{padding-left:26px;padding-right:26px;justify-content:center;text-align:center}
     .coming{letter-spacing:.22em;text-indent:.22em}
   }
+  /* desktop: more presence, the column shouldn't float in a void */
+  @media(min-width:900px){
+    .content{max-width:620px}
+    .logo{width:min(340px,30vw)}
+    .coming{font-size:clamp(44px,4.6vw,64px)}
+    .tagline{max-width:480px;font-size:16px}
+    .wl{max-width:480px}
+    .bg-lights{
+      background:
+        radial-gradient(26px 12px at 14% 0%,  rgba(225,228,235,.5), transparent 70%),
+        radial-gradient(28px 13px at 32% 0%,  rgba(225,228,235,.6), transparent 70%),
+        radial-gradient(32px 15px at 50% 0%,  rgba(225,228,235,.75), transparent 70%),
+        radial-gradient(28px 13px at 68% 0%,  rgba(225,228,235,.6), transparent 70%),
+        radial-gradient(26px 12px at 86% 0%,  rgba(225,228,235,.5), transparent 70%),
+        radial-gradient(9% 55% at 14% 0%, rgba(214,218,226,.11), transparent 78%),
+        radial-gradient(10% 62% at 32% 0%, rgba(214,218,226,.14), transparent 79%),
+        radial-gradient(11% 68% at 50% 0%, rgba(214,218,226,.18), transparent 80%),
+        radial-gradient(10% 62% at 68% 0%, rgba(214,218,226,.14), transparent 79%),
+        radial-gradient(9% 55% at 86% 0%, rgba(214,218,226,.11), transparent 78%);
+    }
+  }
   @media(max-height:660px){
     .content{padding-top:40px}
     .coming{margin-top:22px}
