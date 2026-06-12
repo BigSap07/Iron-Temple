@@ -63,11 +63,23 @@
     overflow:hidden;
   }
   .stage-bg{
-    position:absolute;inset:0;z-index:0;
-    background:url('nautilus.jpg') center 30% / cover no-repeat;
-    filter:grayscale(45%) brightness(.5);
-    opacity:.28;
+    position:absolute;inset:-3%;z-index:0;
+    background:url('bg.jpg') center 40% / cover no-repeat;
+    opacity:.9;
+    animation:kenburns 36s ease-in-out infinite alternate;
+    transform-origin:50% 38%;
   }
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.07)}}
+  /* drifting dust */
+  #dust{position:absolute;inset:0;z-index:2;pointer-events:none}
+  /* cursor spotlight (desktop only) */
+  .spot{
+    position:absolute;z-index:2;pointer-events:none;display:none;
+    width:560px;height:560px;border-radius:50%;
+    background:radial-gradient(circle, rgba(169,140,104,.10) 0%, transparent 60%);
+    mix-blend-mode:screen;transform:translate(-50%,-50%);
+  }
+  @media(pointer:fine){.spot{display:block}}
   /* overhead light cones, like the hall in the poster */
   .stage-lights{
     position:absolute;inset:0;z-index:1;pointer-events:none;
@@ -104,11 +116,21 @@
     text-align:center;padding:72px 30px 40px;gap:0;
   }
 
+  .logo-wrap{position:relative;display:inline-block;opacity:0;transform:scale(.97)}
   .logo{
-    width:min(400px,78vw);height:auto;mix-blend-mode:lighten;
-    filter:drop-shadow(0 0 50px rgba(0,0,0,.7));
-    opacity:0;transform:scale(.97);
+    width:min(290px,58vw);height:auto;mix-blend-mode:lighten;
+    opacity:.92;
+    filter:drop-shadow(0 0 36px rgba(0,0,0,.6));
   }
+  /* one-time light sweep across the logo after load */
+  .logo-wrap::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.20) 50%,transparent 62%);
+    mix-blend-mode:lighten;
+    transform:translateX(-120%);
+  }
+  .loaded .logo-wrap::after{animation:sweep 1.6s var(--ease) 1.6s forwards}
+  @keyframes sweep{to{transform:translateX(120%)}}
 
   .coming{
     margin-top:clamp(34px,6vh,56px);
@@ -116,10 +138,13 @@
     font-size:clamp(34px,7.5vw,52px);
     letter-spacing:.32em;text-indent:.32em;line-height:1;
     color:#cfcfcf;
-    background:linear-gradient(176deg,#ffffff 0%,#c9c9c9 22%,#7e7e7e 44%,#ededed 56%,#9a9a9a 74%,#666 100%);
+    background:linear-gradient(110deg,#777 0%,#c9c9c9 18%,#ffffff 32%,#c9c9c9 46%,#777 60%,#9a9a9a 80%,#777 100%);
+    background-size:240% 100%;
     -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:shimmer 7s linear infinite;
     opacity:0;transform:translateY(16px);
   }
+  @keyframes shimmer{from{background-position:240% 0}to{background-position:-240% 0}}
   .tagline{
     margin-top:18px;max-width:430px;
     color:var(--muted);font-size:clamp(13.5px,1.7vw,15.5px);line-height:1.6;
@@ -198,8 +223,8 @@
   }
 
   /* load choreography */
-  .loaded .logo{animation:logoIn 1.4s var(--ease) .2s forwards}
-  .loaded .coming{animation:rise .9s var(--ease) .9s forwards}
+  .loaded .logo-wrap{animation:logoIn 1.4s var(--ease) .2s forwards}
+  .loaded .coming{animation:rise .9s var(--ease) .9s forwards,shimmer 7s linear 1.8s infinite}
   .loaded .tagline{animation:rise .9s var(--ease) 1.05s forwards}
   .loaded .wl{animation:rise .9s var(--ease) 1.2s forwards}
   .loaded .socials{animation:rise .9s var(--ease) 1.35s forwards}
@@ -218,7 +243,9 @@
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .logo,.coming,.tagline,.wl,.socials{opacity:1!important;transform:none!important}
+    .logo-wrap,.coming,.tagline,.wl,.socials{opacity:1!important;transform:none!important}
+    .coming{background-position:50% 0!important}
+    #dust,.spot{display:none!important}
   }
 </style>
 </head>
@@ -229,10 +256,12 @@
   <div class="stage-lights" aria-hidden="true"></div>
   <div class="stage-glow" aria-hidden="true"></div>
   <div class="stage-veil" aria-hidden="true"></div>
+  <canvas id="dust" aria-hidden="true"></canvas>
+  <div class="spot" id="spot" aria-hidden="true"></div>
   <div class="frame" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
 
   <div class="content">
-    <img class="logo" src="logo.png" alt="Iron Temple" fetchpriority="high">
+    <span class="logo-wrap"><img class="logo" src="logo.png" alt="Iron Temple" fetchpriority="high"></span>
 
     <h1 class="coming">Coming Soon</h1>
     <p class="tagline">A training facility built for serious athletes. <b>No circuits. No classes. No compromise on equipment.</b></p>
@@ -322,6 +351,72 @@ const WAITLIST_SOURCE = 'iron-temple-prelaunch';
   }
   btn.addEventListener('click', submit);
   emailEl.addEventListener('keydown', function(e){ if(e.key === 'Enter') submit(); });
+
+  /* ---- atmosphere: drifting dust + cursor spotlight ---- */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduced){
+    var canvas = document.getElementById('dust');
+    var ctx = canvas.getContext('2d');
+    var stage = canvas.parentElement;
+    var parts = [];
+    var spot = document.getElementById('spot');
+    var fine = window.matchMedia('(pointer: fine)').matches;
+    var mx = -9999, my = -9999, sx = -9999, sy = -9999;
+
+    function resize(){
+      canvas.width = stage.clientWidth;
+      canvas.height = stage.clientHeight;
+      var count = canvas.width < 600 ? 22 : 42;
+      parts = [];
+      for(var i = 0; i < count; i++){
+        parts.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: .6 + Math.random() * 1.6,
+          vy: -(.08 + Math.random() * .22),
+          vx: (Math.random() - .5) * .12,
+          a: .08 + Math.random() * .22,
+          ph: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    if(fine){
+      stage.addEventListener('mousemove', function(e){
+        var r = stage.getBoundingClientRect();
+        mx = e.clientX - r.left; my = e.clientY - r.top;
+      });
+      stage.addEventListener('mouseleave', function(){ mx = -9999; my = -9999; });
+    }
+
+    var t = 0;
+    function frame(){
+      t += .016;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for(var i = 0; i < parts.length; i++){
+        var p = parts[i];
+        p.x += p.vx + Math.sin(t + p.ph) * .06;
+        p.y += p.vy;
+        if(p.y < -4){ p.y = canvas.height + 4; p.x = Math.random() * canvas.width; }
+        if(p.x < -4) p.x = canvas.width + 4;
+        if(p.x > canvas.width + 4) p.x = -4;
+        var tw = p.a * (.7 + .3 * Math.sin(t * 1.6 + p.ph));
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(169,140,104,' + tw.toFixed(3) + ')';
+        ctx.fill();
+      }
+      if(fine){
+        sx += (mx - sx) * .08; sy += (my - sy) * .08;
+        spot.style.left = sx + 'px';
+        spot.style.top = sy + 'px';
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
 })();
 </script>
 </body>
