@@ -131,22 +131,50 @@
     padding: 2.5rem 0;
   }
 
-  .logo {
+  .logo-wrap {
+    position: relative;
     width: clamp(180px, 26vw, 270px);
+    margin-bottom: clamp(1.8rem, 4.5vh, 3rem);
+  }
+  .logo {
+    width: 100%;
     height: auto;
     display: block;
-    margin-bottom: clamp(1.8rem, 4.5vh, 3rem);
     filter: drop-shadow(0 0 60px rgba(232, 232, 232, 0.07));
+  }
+  /* Periodic light sweep across the steel, masked to the mark itself */
+  .logo-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+    background-size: 300% 100%;
+    background-position: 130% 0;
+    -webkit-mask-image: url('mark.png');
+    mask-image: url('mark.png');
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    animation: sheen 9s ease-in-out 2.2s infinite;
+    pointer-events: none;
+  }
+  @keyframes sheen {
+    0%   { background-position: 130% 0; }
+    16%  { background-position: -30% 0; }
+    100% { background-position: -30% 0; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-wrap::after { animation: none; opacity: 0; }
   }
 
   h1 {
     font-family: 'Oswald', sans-serif;
-    font-weight: 500;
-    font-size: clamp(1.35rem, 3.4vw, 2.2rem);
-    line-height: 1.35;
-    letter-spacing: 0.06em;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 1.7vw, 1.15rem);
+    line-height: 1.9;
+    letter-spacing: 0.22em;
+    text-indent: 0.22em;
     text-transform: uppercase;
-    color: #F2F2F2;
+    color: var(--text-dim);
     text-wrap: balance;
     margin-bottom: clamp(2.5rem, 6vh, 4rem);
   }
@@ -237,12 +265,67 @@
     text-align: center;
   }
 
-  .credibility {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-indent: 0.12em;
+  /* Brand marquee */
+  .brands {
+    width: 100%;
+    max-width: 900px;
+  }
+  .brands-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-indent: 0.28em;
     text-transform: uppercase;
     color: var(--text-faint);
+    margin-bottom: 1.1rem;
+    text-align: center;
+  }
+  .brands-viewport {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 15%, #000 85%, transparent);
+  }
+  .brands-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee 95s linear infinite;
+  }
+  .brands-track:hover {
+    animation-play-state: paused;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    margin-right: clamp(3rem, 6vw, 5rem);
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .brand img {
+    height: 28px;
+    max-width: 160px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.55;
+  }
+  .brand img.tall {
+    height: 48px;
+  }
+  @keyframes marquee {
+    to { transform: translateX(-50%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brands-track { animation: none; }
+    .brands-viewport {
+      -webkit-mask-image: none;
+      mask-image: none;
+      display: flex;
+      justify-content: center;
+    }
   }
 
   /* Footer: true three-column symmetry */
@@ -303,7 +386,9 @@
   <p class="wordmark fade fade-1">Iron Temple</p>
 
   <div class="hero">
-    <img class="logo fade fade-2" src="mark.png" alt="Iron Temple monogram" width="740" height="623">
+    <div class="logo-wrap fade fade-2">
+      <img class="logo" src="mark.png" alt="Iron Temple monogram" width="740" height="623">
+    </div>
 
     <p class="eyebrow fade fade-3">Opening soon</p>
     <h1 class="fade fade-3">No circuits. No classes.<br>No compromise on equipment.</h1>
@@ -319,7 +404,41 @@
     </div>
   </div>
 
-  <p class="credibility fade fade-4">Equipped by Prime Fitness. Nautilus. Newtech.</p>
+  <div class="brands fade fade-4" aria-label="Equipped by Prime Fitness, Nautilus, Newtech, Panatta, Cybex, Gymleco, Atlantis, Arsenal Strength, TBJP x Granite, Citadel and Glute Builder">
+    <p class="brands-label">Equipped by</p>
+    <div class="brands-viewport">
+      <div class="brands-track" aria-hidden="true">
+        <!-- Set 1 -->
+        <span class="brand"><img src="brands/prime.png" alt="Prime Fitness" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/nautilus.png" alt="Nautilus" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/newtech.png" alt="Newtech" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/panatta.png" alt="Panatta" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/cybex.png" alt="Cybex" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/gymleco.png" alt="Gymleco" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/atlantis.png" alt="Atlantis" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/arsenal-strength.png" alt="Arsenal Strength" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/tbjp-granite.png" alt="TBJP x Granite" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/citadel.png" alt="Citadel" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/glute-builder.png" alt="Glute Builder" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/brand-12.png" alt="[Owner: brand 12]" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/brand-13.png" alt="[Owner: brand 13]" onerror="this.outerHTML=this.alt"></span>
+        <!-- Set 2: exact duplicate, required for the seamless loop -->
+        <span class="brand"><img src="brands/prime.png" alt="Prime Fitness" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/nautilus.png" alt="Nautilus" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/newtech.png" alt="Newtech" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/panatta.png" alt="Panatta" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/cybex.png" alt="Cybex" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/gymleco.png" alt="Gymleco" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/atlantis.png" alt="Atlantis" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/arsenal-strength.png" alt="Arsenal Strength" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/tbjp-granite.png" alt="TBJP x Granite" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img class="tall" src="brands/citadel.png" alt="Citadel" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/glute-builder.png" alt="Glute Builder" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/brand-12.png" alt="[Owner: brand 12]" onerror="this.outerHTML=this.alt"></span>
+        <span class="brand"><img src="brands/brand-13.png" alt="[Owner: brand 13]" onerror="this.outerHTML=this.alt"></span>
+      </div>
+    </div>
+  </div>
 </main>
 
 <footer>
