@@ -48,7 +48,7 @@
     z-index: 0;
     /* background-image: url('atmosphere.jpg'); background-size: cover; background-position: center 42%; opacity: 0.22; filter: grayscale(100%); */
     background:
-      radial-gradient(ellipse 120% 90% at 50% 38%, #161616 0%, #0A0A0A 45%, #000 100%);
+      radial-gradient(ellipse 120% 90% at 50% 36%, #1A1A1A 0%, #0A0A0A 48%, #000 100%);
     pointer-events: none;
   }
   /* Fine grain so the black reads as material, not a void */
@@ -123,21 +123,22 @@
   .logo {
     width: clamp(220px, 32vw, 340px);
     height: auto;
-    mix-blend-mode: lighten;
     display: block;
     margin-bottom: clamp(2rem, 5vh, 3.5rem);
+    filter: drop-shadow(0 0 60px rgba(232, 232, 232, 0.07));
   }
 
   h1 {
     font-family: 'Oswald', sans-serif;
     font-weight: 500;
-    font-size: clamp(1.6rem, 4.2vw, 2.75rem);
-    line-height: 1.25;
-    letter-spacing: 0.04em;
+    font-size: clamp(1.7rem, 4.6vw, 3.1rem);
+    line-height: 1.18;
+    letter-spacing: 0.035em;
     text-transform: uppercase;
+    color: #F2F2F2;
     max-width: 22ch;
     text-wrap: balance;
-    margin-bottom: 1.1rem;
+    margin-bottom: 1.2rem;
   }
 
   .subline {
@@ -204,10 +205,12 @@
     font-size: 0.82rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    padding: 0 1.6rem;
+    padding: 0 1.7rem;
     cursor: pointer;
     transition: background 0.2s ease;
     white-space: nowrap;
+    /* Chamfered corner, same cut as the monogram */
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
   }
   button:hover { background: var(--brass-bright); }
   button:focus-visible {
@@ -260,7 +263,6 @@
   footer img {
     height: 26px;
     width: auto;
-    mix-blend-mode: lighten;
     opacity: 0.45;
     justify-self: start;
   }
@@ -326,8 +328,8 @@
   <img src="logo.png" alt="" aria-hidden="true">
   <span class="credit">Built in Mol by Louis Bartholomeus</span>
   <span class="links">
-    <a href="#">[Owner: contact]</a>
-    <a href="#">[Owner: instagram]</a>
+    <a href="mailto:info@irontemple.be">info@irontemple.be</a>
+    <a href="https://www.instagram.com/irontemple.be" target="_blank" rel="noopener">@irontemple.be</a>
   </span>
 </footer>
 
